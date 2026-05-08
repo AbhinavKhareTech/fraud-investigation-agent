@@ -1,0 +1,36 @@
+{
+  "metadata": {
+    "description": "Eval scenarios for fraud investigation agent",
+    "categories": {
+      "true_positive": "Agent should detect fraud pattern",
+      "true_negative": "Agent should clear the merchant",
+      "ambiguous": "Partial signals, agent should flag for review",
+      "degraded": "Tool failures injected, agent should handle gracefully"
+    }
+  },
+  "scenarios": [
+    {"id": "tp-001", "category": "true_positive", "input": "Investigate merchant mrc_00005", "expected": {"should_detect": true, "expected_decision": "BLOCK", "expected_pattern": "shared_settlement_bank", "expected_ring_members": ["mrc_00006", "mrc_00008", "mrc_00009"], "min_tools_called": 2}},
+    {"id": "tp-002", "category": "true_positive", "input": "Check if mrc_00002 is involved in refund fraud", "expected": {"should_detect": true, "expected_decision": "REVIEW", "expected_pattern": "refund_cycling", "min_tools_called": 2}},
+    {"id": "tp-003", "category": "true_positive", "input": "Investigate mrc_00010 for suspicious transaction velocity", "expected": {"should_detect": true, "expected_decision": "BLOCK", "expected_pattern": "card_testing", "min_tools_called": 1}},
+    {"id": "tp-004", "category": "true_positive", "input": "Run full risk assessment on mrc_00006", "expected": {"should_detect": true, "expected_decision": "BLOCK", "expected_pattern": "shared_settlement_bank", "min_tools_called": 2}},
+    {"id": "tp-005", "category": "true_positive", "input": "Is mrc_00008 part of any merchant ring?", "expected": {"should_detect": true, "expected_decision": "BLOCK", "expected_pattern": "shared_settlement_bank", "min_tools_called": 1}},
+
+    {"id": "tn-001", "category": "true_negative", "input": "Investigate merchant mrc_00001", "expected": {"should_detect": false, "expected_decision": "ALLOW", "min_tools_called": 1}},
+    {"id": "tn-002", "category": "true_negative", "input": "Check mrc_00001 for any ring connections", "expected": {"should_detect": false, "expected_decision": "ALLOW", "min_tools_called": 2}},
+    {"id": "tn-003", "category": "true_negative", "input": "Is mrc_00001 safe for high-value transactions?", "expected": {"should_detect": false, "expected_decision": "ALLOW", "min_tools_called": 1}},
+    {"id": "tn-004", "category": "true_negative", "input": "Run risk assessment on mrc_00015", "expected": {"should_detect": false, "expected_decision": "ALLOW", "min_tools_called": 1}},
+    {"id": "tn-005", "category": "true_negative", "input": "Investigate mrc_00020 for potential fraud", "expected": {"should_detect": false, "expected_decision": "ALLOW", "min_tools_called": 1}},
+
+    {"id": "am-001", "category": "ambiguous", "input": "Investigate mrc_00003, we got a tip about suspicious refunds", "expected": {"should_detect": true, "expected_decision": "REVIEW", "notes": "Connected to Ring A but weaker signal than mrc_00002"}},
+    {"id": "am-002", "category": "ambiguous", "input": "Check mrc_00004, a partner mentioned irregularities", "expected": {"should_detect": true, "expected_decision": "REVIEW", "notes": "Peripheral Ring A member, lower shared payer count"}},
+    {"id": "am-003", "category": "ambiguous", "input": "mrc_00009 has higher than average transaction values, investigate", "expected": {"should_detect": true, "expected_decision": "REVIEW", "notes": "Ring B member but prompt emphasizes amount, not ring"}},
+    {"id": "am-004", "category": "ambiguous", "input": "We see some shared payers between mrc_00001 and mrc_00005. Investigate.", "expected": {"should_detect": true, "expected_decision": "REVIEW", "notes": "Agent should assess both but only mrc_00005 is truly risky"}},
+    {"id": "am-005", "category": "ambiguous", "input": "Investigate mrc_00007, new merchant with limited history", "expected": {"should_detect": false, "expected_decision": "REVIEW", "notes": "Insufficient data should yield caution, not false alarm"}},
+
+    {"id": "dg-001", "category": "degraded", "input": "Investigate mrc_00005", "inject_failure": {"tool": "detect_merchant_ring", "error": "TimeoutError", "message": "Graph service timed out after 10s"}, "expected": {"should_acknowledge_gap": true, "should_still_report": true, "notes": "Agent should report risk findings and flag missing ring data"}},
+    {"id": "dg-002", "category": "degraded", "input": "Check mrc_00002 risk level", "inject_failure": {"tool": "assess_payment_risk", "error": "ConnectionError", "message": "Risk engine unavailable"}, "expected": {"should_acknowledge_gap": true, "should_still_report": false, "notes": "Without risk assessment, agent cannot make claims"}},
+    {"id": "dg-003", "category": "degraded", "input": "Full investigation on mrc_00010", "inject_failure": {"tool": "assess_payment_risk", "error": "ValueError", "message": "Invalid response format from engine"}, "expected": {"should_acknowledge_gap": true, "should_still_report": false, "notes": "Malformed response caught by validation"}},
+    {"id": "dg-004", "category": "degraded", "input": "Investigate mrc_00005 for shared bank account fraud", "inject_failure": {"tool": "detect_merchant_ring", "error": "Exception", "message": "Empty result set"}, "expected": {"should_acknowledge_gap": true, "should_still_report": true, "notes": "Risk assessment alone has enough signal for BLOCK"}},
+    {"id": "dg-005", "category": "degraded", "input": "Investigate mrc_00001", "inject_failure": {"tool": "detect_merchant_ring", "error": "TimeoutError", "message": "Graph traversal timed out"}, "expected": {"should_acknowledge_gap": true, "should_still_report": true, "notes": "Risk shows ALLOW, ring timeout should not cause false alarm"}}
+  ]
+}
