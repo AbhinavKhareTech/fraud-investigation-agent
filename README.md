@@ -1,5 +1,35 @@
 # Fraud Investigation Agent
 
+# Fraud Investigation Agent
+
+**An autonomous, auditable AI agent for merchant fraud investigations.**
+
+This agent helps fraud analysts by autonomously investigating suspicious merchants and transactions using a custom lightweight orchestrator. It performs risk assessment, detects coordinated merchant rings, maintains a structured evidence ledger, and delivers clear, cited verdicts with confidence scores.
+
+Built as a focused, production-minded solution: **no heavy frameworks** (LangGraph/LangChain avoided for maximum transparency and auditability).
+
+### Key Features
+
+- **Multi-turn autonomous investigation** with controlled tool usage
+- **Structured Evidence Memory** — tracks findings, gaps, and confidence (not just chat history)
+- **Merchant Ring Detection** powered by graph signals
+- **Risk Scoring** using XGBoost + structural features
+- **Graceful degradation** and explicit uncertainty handling
+- **Model agnostic** (Claude, GPT-4o, etc.)
+- **Full evaluation suite** with 20+ test scenarios
+
+### Tech Stack
+
+- Python 3.11+
+- Custom async orchestrator (~250 LOC)
+- FastAPI + CLI interface
+- Pydantic v2 structured outputs
+- Trident Fraud Engine (graph + ML backend)
+
+---
+
+**Perfect for fintech, payment companies, and fraud teams** looking for reliable agentic systems that regulators and analysts can actually trust.
+
 **A multi-turn conversational agent for payment fraud investigation, built on the [BGI Trident](https://github.com/AbhinavKhareTech/trident-payment-fraud) fraud detection engine.**
 
 > **Work Trial Context**: This repo is a 2-day deliverable for Meraki Labs PS3 (Minimal Agent, Maximum Reliability). The BGI Trident engine (graph-native fraud scoring, synthetic dataset, MCP tools) is pre-existing work. Everything in this repo - the agentic investigation layer, session memory, eval framework, and production analysis - is the work trial scope.
