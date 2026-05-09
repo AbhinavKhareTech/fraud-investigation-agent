@@ -175,7 +175,7 @@ See [ARCHITECTURE.md](ARCHITECTURE.md) for full decision doc. Summary:
 | Ambiguous | 5 | 0%* | 0.40 | 0.67 |
 | Degraded | 5 | 100% | 1.00 | 0.75 |
 
-*Rate-limited on free tier — true_negative and ambiguous pending full re-run. True positive and degraded categories fully validated.*
+*Rate-limited on free tier: true_negative and ambiguous pending full re-run. True positive and degraded categories fully validated.*
 
 ---
 
