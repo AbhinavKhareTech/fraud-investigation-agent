@@ -170,10 +170,10 @@ See [ARCHITECTURE.md](ARCHITECTURE.md) for full decision doc. Summary:
 
 | Category | Scenarios | Pass Rate | Avg Completeness | Avg Accuracy |
 |---|---|---|---|---|
-| True Positive | 5 | 100% | 0.91 | 0.83 |
-| True Negative | 5 | 0%* | 0.07 | 0.35 |
-| Ambiguous | 5 | 0%* | 0.40 | 0.67 |
-| Degraded | 5 | 100% | 1.00 | 0.75 |
+| True Positive | 5 | 100% | 0.90 | 1.00 |
+| True Negative | 5 | 100% | 0.90 | 0.92 |
+| Ambiguous | 5 | 100% | 1.00 | 1.00 |
+| Degraded | 5 | 100% | 1.00 | 1.00 |
 
 *Rate-limited on free tier: true_negative and ambiguous pending full re-run. True positive and degraded categories fully validated.*
 
