@@ -1,32 +1,28 @@
 """
 FastAPI server for the fraud investigation agent.
-
-Endpoints:
-    POST /investigate          - Send a message, get investigation response
-    GET  /sessions/{id}/state  - View investigation state
-    POST /sessions             - Create new session
-    DELETE /sessions/{id}      - Clear session
-
 Run: uvicorn api.server:app --reload
 """
 
 import os
 import time
-
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
-
 from agent.orchestrator import InvestigationOrchestrator
 from agent.tools import ToolRegistry
 from agent.llm import LLMClient
 
-app = FastAPI(
-    title="Fraud Investigation Agent",
-    description="Multi-turn fraud investigation over BGI Trident",
-    version="0.1.0",
-)
+app = FastAPI(title="Fraud Investigation Agent", version="0.1.0")
+orchestrator = None
 
-orchestrator: InvestigationOrchestrator | None = None
+
+def detect_provider():
+    if os.environ.get("ANTHROPIC_API_KEY"):
+        return "anthropic"
+    elif os.environ.get("OPENAI_API_KEY"):
+        return "openai"
+    elif os.environ.get("GROQ_API_KEY"):
+        return "groq"
+    return "openai"
 
 
 @app.on_event("startup")
@@ -39,9 +35,7 @@ async def startup():
         tools = ToolRegistry.from_engine(engine)
     except (ImportError, Exception):
         tools = ToolRegistry.from_mock()
-
-    provider = "anthropic" if os.environ.get("ANTHROPIC_API_KEY") else "openai"
-    llm = LLMClient(provider=provider)
+    llm = LLMClient(provider=detect_provider())
     orchestrator = InvestigationOrchestrator(llm_client=llm, tool_registry=tools)
 
 
@@ -69,9 +63,9 @@ async def get_session_state(session_id: str):
 
 @app.post("/sessions")
 async def create_session():
-    session_id = f"inv-{int(time.time())}"
-    orchestrator.get_or_create_session(session_id)
-    return {"session_id": session_id}
+    sid = f"inv-{int(time.time())}"
+    orchestrator.get_or_create_session(sid)
+    return {"session_id": sid}
 
 
 @app.delete("/sessions/{session_id}")

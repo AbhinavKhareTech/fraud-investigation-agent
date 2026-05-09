@@ -16,3 +16,6 @@ eval/results/*.json
 .vscode/
 *.swp
 *.swo
+.DS_Store
+*.bak
+*.pyyc
