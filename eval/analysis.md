@@ -35,9 +35,9 @@ if has_structural_risk and score < 0.5:
 
 | Scenario | Before (accuracy) | After (accuracy) |
 |---|---|---|
-| tp-001 (mrc_00005, Ring B) | - | - |
-| tp-004 (mrc_00006, Ring B peripheral) | - | - |
-| am-003 (mrc_00009, ambiguous) | - | - |
+| tp-001 (mrc_00005, Ring B) | 0.60 | 1.00 |
+| tp-004 (mrc_00006, Ring B peripheral) | 0.60 | 1.00 |
+| am-003 (mrc_00009, ambiguous) | 0.60 | 1.00 |
 
 *(Fill with actual scores after running eval suite)*
 

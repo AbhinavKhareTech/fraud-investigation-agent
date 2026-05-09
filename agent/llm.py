@@ -1,4 +1,4 @@
-"""LLM Client abstraction - Anthropic, OpenAI, Groq, Deepseek, Qwen, Gemini."""
+"""LLM Client - Anthropic, OpenAI, Groq, Gemini."""
 
 from __future__ import annotations
 import os
@@ -24,18 +24,11 @@ class LLMClient:
             self.model = model or "llama-3.3-70b-versatile"
             import openai
             self.client = openai.AsyncOpenAI(
-                api_key=os.environ.get("GROQ_API_KEY"),  # set via env var
+                api_key=os.environ.get("GROQ_API_KEY"),
                 base_url="https://api.groq.com/openai/v1",
             )
-        elif provider == "deepseek":
-            self.model = model or "deepseek-chat"
-            import openai
-            self.client = openai.AsyncOpenAI(
-                api_key=os.environ.get("DEEPSEEK_API_KEY"),
-                base_url="https://api.deepseek.com/v1",
-            )
         elif provider == "gemini":
-            self.model = model or "gemini-2.0-flash"
+            self.model = model or "gemini-2.5-flash"
             import openai
             self.client = openai.AsyncOpenAI(
                 api_key=os.environ.get("GEMINI_API_KEY"),

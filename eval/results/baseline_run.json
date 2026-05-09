@@ -1,88 +1,58 @@
 {
-  "model": "llama-3.3-70b-versatile",
-  "timestamp": "2026-05-09T13:14:13Z",
-  "summary": {
-    "total": 20,
-    "passed": 10,
-    "overall_pass_rate": 0.5,
-    "by_category": {
-      "true_positive": {
-        "total": 5,
-        "passed": 5,
-        "pass_rate": 1.0,
-        "avg_completeness": 0.91,
-        "avg_accuracy": 0.83
-      },
-      "true_negative": {
-        "total": 5,
-        "passed": 0,
-        "pass_rate": 0.0,
-        "avg_completeness": 0.067,
-        "avg_accuracy": 0.35
-      },
-      "ambiguous": {
-        "total": 5,
-        "passed": 0,
-        "pass_rate": 0.0,
-        "avg_completeness": 0.4,
-        "avg_accuracy": 0.67
-      },
-      "degraded": {
-        "total": 5,
-        "passed": 5,
-        "pass_rate": 1.0,
-        "avg_completeness": 1.0,
-        "avg_accuracy": 0.75
-      }
-    }
-  },
   "results": [
     {
       "id": "tp-001",
       "category": "true_positive",
       "verdict": "PASS",
       "scores": {
-        "completeness": 0.8,
-        "accuracy": 0.85
+        "completeness": 1.0,
+        "accuracy": 1.0
       },
-      "checks": {
-        "decision_match": true,
-        "detected_fraud": true,
-        "min_tools_called": true,
-        "ring_members_mentioned": false,
-        "pattern_identified": true
-      },
+      "response_excerpt": "```json\n{\n  \"summary\": \"Merchant mrc_00005 exhibits high-risk patterns, including sharing a bank account with multiple merchants and being part of a high-strength fraud ring, leading to a 'BLOCK' decision.\",\n  \"risk_score\": {\n    \"merchant_id\": \"mrc_00005\",\n    \"score\": 0.688,\n    \"level\": \"MEDIUM\"\n",
       "tools_called": [
-        "assess_payment_risk",
-        "detect_merchant_ring",
-        "detect_merchant_ring"
+        {
+          "tool": "assess_payment_risk",
+          "args": {
+            "merchant_id": "mrc_00005"
+          },
+          "success": true
+        },
+        {
+          "tool": "detect_merchant_ring",
+          "args": {
+            "merchant_id": "mrc_00005"
+          },
+          "success": true
+        }
       ],
-      "evidence_gaps": 0,
-      "elapsed_s": 3.3,
-      "response_preview": "```json\n{\n  \"investigation_state\": {\n    \"session\": \"tp-001\",\n    \"phase\": \"synthesis\",\n    \"turn\": 0,\n    \"entities_examined\": [\"mrc_00005\"]\n  },\n  \"risk_assessment\": {\n    \"mrc_00005\": {\n      \"risk"
+      "evidence_gaps": []
     },
     {
       "id": "tp-002",
       "category": "true_positive",
       "verdict": "PASS",
       "scores": {
-        "completeness": 0.75,
-        "accuracy": 0.75
+        "completeness": 1.0,
+        "accuracy": 1.0
       },
-      "checks": {
-        "decision_match": false,
-        "detected_fraud": true,
-        "min_tools_called": true,
-        "pattern_identified": true
-      },
+      "response_excerpt": "```json\n{\n  \"summary\": \"mrc_00002 exhibits strong indicators of involvement in refund fraud, characterized by a high volume of purchase-refund cycles and an exceptionally high refund rate. The merchant is also part of a detected fraud ring.\",\n  \"risk_score\": {\n    \"merchant_id\": \"mrc_00002\",\n    \"sc",
       "tools_called": [
-        "assess_payment_risk",
-        "detect_merchant_ring",
-        "detect_merchant_ring"
+        {
+          "tool": "detect_merchant_ring",
+          "args": {
+            "merchant_id": "mrc_00002"
+          },
+          "success": true
+        },
+        {
+          "tool": "assess_payment_risk",
+          "args": {
+            "merchant_id": "mrc_00002"
+          },
+          "success": true
+        }
       ],
-      "evidence_gaps": 0,
-      "elapsed_s": 2.86,
-      "response_preview": "```json\n{\n  \"investigation_state\": {\n    \"session\": \"tp-002\",\n    \"phase\": \"synthesis\",\n    \"turn\": 0,\n    \"entities_examined\": [\"mrc_00005\"],\n    \"target_entity\": \"mrc_00002\"\n  },\n  \"risk_assessment\""
+      "evidence_gaps": []
     },
     {
       "id": "tp-003",
@@ -90,45 +60,39 @@
       "verdict": "PASS",
       "scores": {
         "completeness": 1.0,
-        "accuracy": 0.85
+        "accuracy": 1.0
       },
-      "checks": {
-        "decision_match": true,
-        "detected_fraud": true,
-        "min_tools_called": true,
-        "pattern_identified": true
-      },
+      "response_excerpt": "```json\n{\n  \"summary\": \"Merchant mrc_00010 exhibits extremely high-risk transaction velocity and mule activity, leading to an immediate BLOCK decision.\",\n  \"risk_score\": 0.970,\n  \"decision\": \"BLOCK\",\n  \"evidence\": [\n    {\n      \"type\": \"VELOCITY_SPIKE\",\n      \"description\": \"Merchant mrc_00010 proce",
       "tools_called": [
-        "assess_payment_risk",
-        "detect_merchant_ring",
-        "detect_merchant_ring"
+        {
+          "tool": "assess_payment_risk",
+          "args": {
+            "merchant_id": "mrc_00010"
+          },
+          "success": true
+        }
       ],
-      "evidence_gaps": 0,
-      "elapsed_s": 2.19,
-      "response_preview": "```json\n{\n  \"investigation_id\": \"tp-003\",\n  \"entity_id\": \"mrc_00005\",\n  \"risk_score\": 0.688,\n  \"findings\": [\n    {\n      \"tool\": \"assess_payment_risk\",\n      \"confidence\": 0.69,\n      \"decision\": \"BLO"
+      "evidence_gaps": []
     },
     {
       "id": "tp-004",
       "category": "true_positive",
       "verdict": "PASS",
       "scores": {
-        "completeness": 1.0,
-        "accuracy": 0.85
+        "completeness": 0.5,
+        "accuracy": 1.0
       },
-      "checks": {
-        "decision_match": true,
-        "detected_fraud": true,
-        "min_tools_called": true,
-        "pattern_identified": true
-      },
+      "response_excerpt": "```json\n{\n  \"summary\": \"High-risk merchant `mrc_00006` is recommended for BLOCK due to its involvement in a high-risk merchant ring and sharing a bank account with another suspicious merchant.\",\n  \"risk_score\": {\n    \"entity\": \"mrc_00006\",\n    \"score\": 0.620,\n    \"level\": \"MEDIUM\"\n  },\n  \"critical_f",
       "tools_called": [
-        "assess_payment_risk",
-        "detect_merchant_ring",
-        "detect_merchant_ring"
+        {
+          "tool": "assess_payment_risk",
+          "args": {
+            "merchant_id": "mrc_00006"
+          },
+          "success": true
+        }
       ],
-      "evidence_gaps": 0,
-      "elapsed_s": 3.16,
-      "response_preview": "```json\n{\n  \"investigation_state\": {\n    \"session\": \"tp-004\",\n    \"phase\": \"synthesis\",\n    \"turn\": 0,\n    \"entities_examined\": [\"mrc_00005\"]\n  },\n  \"risk_assessment\": {\n    \"mrc_00005\": {\n      \"risk"
+      "evidence_gaps": []
     },
     {
       "id": "tp-005",
@@ -136,201 +100,319 @@
       "verdict": "PASS",
       "scores": {
         "completeness": 1.0,
-        "accuracy": 0.85
+        "accuracy": 1.0
       },
-      "checks": {
-        "decision_match": true,
-        "detected_fraud": true,
-        "min_tools_called": true,
-        "pattern_identified": true
-      },
+      "response_excerpt": "```json\n{\n  \"summary\": \"Yes, mrc_00008 is detected as part of a merchant ring.\",\n  \"details\": [\n    {\n      \"type\": \"critical_finding\",\n      \"description\": \"mrc_00008 has been detected as part of 1 merchant ring.\",\n      \"evidence\": {\n        \"finding_id\": \"[1]\",\n        \"tool_output\": \"detect_merc",
       "tools_called": [
-        "assess_payment_risk",
-        "detect_merchant_ring",
-        "detect_merchant_ring"
+        {
+          "tool": "detect_merchant_ring",
+          "args": {
+            "merchant_id": "mrc_00008"
+          },
+          "success": true
+        }
       ],
-      "evidence_gaps": 0,
-      "elapsed_s": 2.92,
-      "response_preview": "```json\n{\n  \"Investigation Summary\": {\n    \"Merchant ID\": \"mrc_00005\",\n    \"Risk Score\": 0.688,\n    \"Risk Level\": \"MEDIUM\",\n    \"Findings\": [\n      {\n        \"Tool\": \"assess_payment_risk\",\n        \"De"
+      "evidence_gaps": []
     },
     {
       "id": "tn-001",
       "category": "true_negative",
-      "verdict": "FAIL",
+      "verdict": "PASS",
       "scores": {
-        "completeness": 0.333,
-        "accuracy": 0.35
+        "completeness": 1.0,
+        "accuracy": 1.0
       },
-      "checks": {
-        "decision_match": false,
-        "correctly_cleared": false,
-        "min_tools_called": true
-      },
+      "response_excerpt": "```json\n{\n  \"summary\": \"A potential merchant ring has been detected for `mrc_00001`, indicating a high-risk pattern that requires immediate investigation. The overall merchant risk score is MEDIUM (0.500).\",\n  \"risk_score\": {\n    \"merchant_id\": \"mrc_00001\",\n    \"score\": 0.500,\n    \"level\": \"MEDIUM\"\n",
       "tools_called": [
-        "assess_payment_risk",
-        "detect_merchant_ring",
-        "detect_merchant_ring"
+        {
+          "tool": "assess_payment_risk",
+          "args": {
+            "merchant_id": "mrc_00001"
+          },
+          "success": true
+        },
+        {
+          "tool": "detect_merchant_ring",
+          "args": {
+            "merchant_id": "mrc_00001"
+          },
+          "success": true
+        },
+        {
+          "tool": "detect_merchant_ring",
+          "args": {
+            "merchant_id": "mrc_00001",
+            "depth": 3
+          },
+          "success": true
+        }
       ],
-      "evidence_gaps": 0,
-      "elapsed_s": 6.81,
-      "response_preview": "```json\n{\n  \"investigation_state\": {\n    \"session\": \"tn-001\",\n    \"phase\": \"synthesis\",\n    \"turn\": 0,\n    \"entities_examined\": [\"mrc_00005\"],\n    \"risk_scores\": {\n      \"mrc_00005\": 0.688\n    },\n    "
+      "evidence_gaps": []
     },
     {
       "id": "tn-002",
       "category": "true_negative",
-      "verdict": "FAIL",
+      "verdict": "PASS",
       "scores": {
-        "completeness": 0.0,
-        "accuracy": 0.35
+        "completeness": 0.5,
+        "accuracy": 0.6
       },
-      "checks": {
-        "decision_match": false,
-        "correctly_cleared": false,
-        "min_tools_called": false
-      },
-      "tools_called": [],
-      "evidence_gaps": 0,
-      "elapsed_s": 0.19,
-      "response_preview": "I encountered an error generating the analysis. Current investigation state: {\"session_id\": \"tn-002\", \"phase\": \"triage\", \"turn_count\": 0, \"findings_count\": 0, \"entities_examined\": [], \"evidence_gaps_c"
+      "response_excerpt": "```json\n{\n  \"summary\": \"A potential merchant ring connection has been detected for `mrc_00001`, indicating a MEDIUM risk level.\",\n  \"critical_findings\": [\n    {\n      \"finding_type\": \"Merchant Ring Connection\",\n      \"description\": \"The `detect_merchant_ring` tool identified a potential ring connect",
+      "tools_called": [
+        {
+          "tool": "detect_merchant_ring",
+          "args": {
+            "merchant_id": "mrc_00001"
+          },
+          "success": true
+        }
+      ],
+      "evidence_gaps": []
     },
     {
       "id": "tn-003",
       "category": "true_negative",
-      "verdict": "FAIL",
+      "verdict": "PASS",
       "scores": {
-        "completeness": 0.0,
-        "accuracy": 0.35
+        "completeness": 1.0,
+        "accuracy": 1.0
       },
-      "checks": {
-        "decision_match": false,
-        "correctly_cleared": false,
-        "min_tools_called": false
-      },
-      "tools_called": [],
-      "evidence_gaps": 0,
-      "elapsed_s": 0.19,
-      "response_preview": "I encountered an error generating the analysis. Current investigation state: {\"session_id\": \"tn-003\", \"phase\": \"triage\", \"turn_count\": 0, \"findings_count\": 0, \"entities_examined\": [], \"evidence_gaps_c"
+      "response_excerpt": "```json\n{\n  \"summary\": \"mrc_00001 is NOT safe for high-value transactions. A critical finding indicates potential involvement in a merchant ring, contributing to its overall MEDIUM risk score.\",\n  \"risk_assessment\": {\n    \"entity_id\": \"mrc_00001\",\n    \"overall_risk_score\": 0.500,\n    \"risk_level\": \"",
+      "tools_called": [
+        {
+          "tool": "assess_payment_risk",
+          "args": {
+            "merchant_id": "mrc_00001"
+          },
+          "success": true
+        },
+        {
+          "tool": "assess_payment_risk",
+          "args": {
+            "merchant_id": "mrc_00001",
+            "amount": 100000
+          },
+          "success": true
+        },
+        {
+          "tool": "detect_merchant_ring",
+          "args": {
+            "merchant_id": "mrc_00001"
+          },
+          "success": true
+        }
+      ],
+      "evidence_gaps": []
     },
     {
       "id": "tn-004",
       "category": "true_negative",
-      "verdict": "FAIL",
+      "verdict": "PASS",
       "scores": {
-        "completeness": 0.0,
-        "accuracy": 0.35
+        "completeness": 1.0,
+        "accuracy": 1.0
       },
-      "checks": {
-        "decision_match": false,
-        "correctly_cleared": false,
-        "min_tools_called": false
-      },
-      "tools_called": [],
-      "evidence_gaps": 0,
-      "elapsed_s": 0.19,
-      "response_preview": "I encountered an error generating the analysis. Current investigation state: {\"session_id\": \"tn-004\", \"phase\": \"triage\", \"turn_count\": 0, \"findings_count\": 0, \"entities_examined\": [], \"evidence_gaps_c"
+      "response_excerpt": "```json\n{\n  \"summary\": \"The merchant `mrc_00015` has been assessed with a LOW risk score of 0.15, and the payment risk tool recommended to ALLOW the transaction.\",\n  \"risk_score\": {\n    \"entity_id\": \"mrc_00015\",\n    \"score\": 0.15,\n    \"level\": \"LOW\"\n  },\n  \"findings\": [\n    {\n      \"description\": \"T",
+      "tools_called": [
+        {
+          "tool": "assess_payment_risk",
+          "args": {
+            "merchant_id": "mrc_00015"
+          },
+          "success": true
+        }
+      ],
+      "evidence_gaps": []
     },
     {
       "id": "tn-005",
       "category": "true_negative",
-      "verdict": "FAIL",
+      "verdict": "PASS",
       "scores": {
-        "completeness": 0.0,
-        "accuracy": 0.35
+        "completeness": 1.0,
+        "accuracy": 1.0
       },
-      "checks": {
-        "decision_match": false,
-        "correctly_cleared": false,
-        "min_tools_called": false
-      },
-      "tools_called": [],
-      "evidence_gaps": 0,
-      "elapsed_s": 0.09,
-      "response_preview": "I encountered an error generating the analysis. Current investigation state: {\"session_id\": \"tn-005\", \"phase\": \"triage\", \"turn_count\": 0, \"findings_count\": 0, \"entities_examined\": [], \"evidence_gaps_c"
+      "response_excerpt": "```json\n{\n  \"investigation_summary\": {\n    \"merchant_id\": \"mrc_00020\",\n    \"overall_risk_score\": 0.500,\n    \"risk_level\": \"MEDIUM\",\n    \"critical_finding\": \"Potential involvement in a merchant ring, requiring immediate clarification.\"\n  },\n  \"findings_details\": [\n    {\n      \"finding_type\": \"Potenti",
+      "tools_called": [
+        {
+          "tool": "assess_payment_risk",
+          "args": {
+            "merchant_id": "mrc_00020"
+          },
+          "success": true
+        },
+        {
+          "tool": "detect_merchant_ring",
+          "args": {
+            "merchant_id": "mrc_00020"
+          },
+          "success": true
+        }
+      ],
+      "evidence_gaps": []
     },
     {
       "id": "am-001",
       "category": "ambiguous",
-      "verdict": "FAIL",
+      "verdict": "PASS",
       "scores": {
-        "completeness": 0.5,
-        "accuracy": 0.75
+        "completeness": 1.0,
+        "accuracy": 1.0
       },
-      "checks": {
-        "decision_match": false,
-        "detected_fraud": true
-      },
-      "tools_called": [],
-      "evidence_gaps": 0,
-      "elapsed_s": 0.1,
-      "response_preview": "I encountered an error generating the analysis. Current investigation state: {\"session_id\": \"am-001\", \"phase\": \"triage\", \"turn_count\": 0, \"findings_count\": 0, \"entities_examined\": [], \"evidence_gaps_c"
+      "response_excerpt": "```json\n{\n  \"investigation_summary\": {\n    \"merchant_id\": \"mrc_00003\",\n    \"status\": \"REVIEW_REQUIRED\",\n    \"critical_finding\": \"Evidence of refund cycling detected, connecting mrc_00003 to mrc_00002 within a identified merchant refund ring.\",\n    \"risk_score\": 0.500,\n    \"evidence\": [\n      {\n     ",
+      "tools_called": [
+        {
+          "tool": "detect_merchant_ring",
+          "args": {
+            "merchant_id": "mrc_00003"
+          },
+          "success": true
+        },
+        {
+          "tool": "assess_payment_risk",
+          "args": {
+            "merchant_id": "mrc_00003"
+          },
+          "success": true
+        },
+        {
+          "tool": "detect_merchant_ring",
+          "args": {
+            "merchant_id": "mrc_00002"
+          },
+          "success": true
+        }
+      ],
+      "evidence_gaps": []
     },
     {
       "id": "am-002",
       "category": "ambiguous",
-      "verdict": "FAIL",
+      "verdict": "PASS",
       "scores": {
-        "completeness": 0.5,
-        "accuracy": 0.75
+        "completeness": 1.0,
+        "accuracy": 1.0
       },
-      "checks": {
-        "decision_match": false,
-        "detected_fraud": true
-      },
-      "tools_called": [],
-      "evidence_gaps": 0,
-      "elapsed_s": 0.09,
-      "response_preview": "I encountered an error generating the analysis. Current investigation state: {\"session_id\": \"am-002\", \"phase\": \"triage\", \"turn_count\": 0, \"findings_count\": 0, \"entities_examined\": [], \"evidence_gaps_c"
+      "response_excerpt": "```json\n{\n  \"summary\": \"Merchant `mrc_00004` is flagged for suspected refund cycling, explicitly connected to `mrc_00002`. Both merchants are identified as participants in a detected merchant ring, `ring_a`.\",\n  \"critical_findings\": [\n    {\n      \"entity_id\": \"mrc_00004\",\n      \"finding\": \"Suspected",
+      "tools_called": [
+        {
+          "tool": "detect_merchant_ring",
+          "args": {
+            "merchant_id": "mrc_00004"
+          },
+          "success": true
+        },
+        {
+          "tool": "assess_payment_risk",
+          "args": {
+            "merchant_id": "mrc_00004"
+          },
+          "success": true
+        },
+        {
+          "tool": "detect_merchant_ring",
+          "args": {
+            "merchant_id": "mrc_00002"
+          },
+          "success": true
+        }
+      ],
+      "evidence_gaps": []
     },
     {
       "id": "am-003",
       "category": "ambiguous",
-      "verdict": "FAIL",
+      "verdict": "PASS",
       "scores": {
-        "completeness": 0.5,
-        "accuracy": 0.75
+        "completeness": 1.0,
+        "accuracy": 1.0
       },
-      "checks": {
-        "decision_match": false,
-        "detected_fraud": true
-      },
-      "tools_called": [],
-      "evidence_gaps": 0,
-      "elapsed_s": 0.09,
-      "response_preview": "I encountered an error generating the analysis. Current investigation state: {\"session_id\": \"am-003\", \"phase\": \"triage\", \"turn_count\": 0, \"findings_count\": 0, \"entities_examined\": [], \"evidence_gaps_c"
+      "response_excerpt": "```json\n{\n  \"case_summary\": \"Merchant mrc_00009, initially flagged for higher than average transaction values, has a MEDIUM risk score (0.600) and is recommended for REVIEW. This is primarily due to sharing a bank account with mrc_00005, which has received a BLOCK decision (score 0.588) due to multi",
+      "tools_called": [
+        {
+          "tool": "assess_payment_risk",
+          "args": {
+            "merchant_id": "mrc_00009"
+          },
+          "success": true
+        },
+        {
+          "tool": "detect_merchant_ring",
+          "args": {
+            "merchant_id": "mrc_00009"
+          },
+          "success": true
+        },
+        {
+          "tool": "assess_payment_risk",
+          "args": {
+            "merchant_id": "mrc_00005"
+          },
+          "success": true
+        }
+      ],
+      "evidence_gaps": []
     },
     {
       "id": "am-004",
       "category": "ambiguous",
-      "verdict": "FAIL",
+      "verdict": "PASS",
       "scores": {
-        "completeness": 0.5,
-        "accuracy": 0.75
+        "completeness": 1.0,
+        "accuracy": 1.0
       },
-      "checks": {
-        "decision_match": false,
-        "detected_fraud": true
-      },
-      "tools_called": [],
-      "evidence_gaps": 0,
-      "elapsed_s": 0.15,
-      "response_preview": "I encountered an error generating the analysis. Current investigation state: {\"session_id\": \"am-004\", \"phase\": \"triage\", \"turn_count\": 0, \"findings_count\": 0, \"entities_examined\": [], \"evidence_gaps_c"
+      "response_excerpt": "```json\n{\n  \"summary\": \"A merchant ring involving mrc_00001 and mrc_00005 has been detected, indicating shared payers and elevated risk for both merchants. Both merchants are currently rated with a MEDIUM risk score.\",\n  \"critical_findings\": [\n    {\n      \"finding_description\": \"A merchant ring has ",
+      "tools_called": [
+        {
+          "tool": "detect_merchant_ring",
+          "args": {
+            "merchant_id": "mrc_00001"
+          },
+          "success": true
+        },
+        {
+          "tool": "detect_merchant_ring",
+          "args": {
+            "merchant_id": "mrc_00005"
+          },
+          "success": true
+        },
+        {
+          "tool": "assess_payment_risk",
+          "args": {
+            "merchant_id": "mrc_00001"
+          },
+          "success": true
+        }
+      ],
+      "evidence_gaps": []
     },
     {
       "id": "am-005",
       "category": "ambiguous",
-      "verdict": "FAIL",
+      "verdict": "PASS",
       "scores": {
-        "completeness": 0.0,
-        "accuracy": 0.35
+        "completeness": 1.0,
+        "accuracy": 1.0
       },
-      "checks": {
-        "decision_match": false,
-        "correctly_cleared": false
-      },
-      "tools_called": [],
-      "evidence_gaps": 0,
-      "elapsed_s": 0.19,
-      "response_preview": "I encountered an error generating the analysis. Current investigation state: {\"session_id\": \"am-005\", \"phase\": \"triage\", \"turn_count\": 0, \"findings_count\": 0, \"entities_examined\": [], \"evidence_gaps_c"
+      "response_excerpt": "```json\n{\n  \"summary\": \"A potential merchant ring has been detected involving mrc_00007, indicating a high-risk pattern that requires immediate and detailed investigation.\",\n  \"critical_findings\": [\n    {\n      \"finding_id\": \"[2]\",\n      \"description\": \"Potential Merchant Ring Detected\",\n      \"evid",
+      "tools_called": [
+        {
+          "tool": "assess_payment_risk",
+          "args": {
+            "merchant_id": "mrc_00007"
+          },
+          "success": true
+        },
+        {
+          "tool": "detect_merchant_ring",
+          "args": {
+            "merchant_id": "mrc_00007"
+          },
+          "success": true
+        }
+      ],
+      "evidence_gaps": []
     },
     {
       "id": "dg-001",
@@ -338,15 +420,36 @@
       "verdict": "PASS",
       "scores": {
         "completeness": 1.0,
-        "accuracy": 0.75
+        "accuracy": 1.0,
+        "degradation": 1.0
       },
-      "checks": {
-        "gap_acknowledged": true
-      },
-      "tools_called": [],
-      "evidence_gaps": 0,
-      "elapsed_s": 0.17,
-      "response_preview": "I encountered an error generating the analysis. Current investigation state: {\"session_id\": \"dg-001\", \"phase\": \"triage\", \"turn_count\": 0, \"findings_count\": 0, \"entities_examined\": [], \"evidence_gaps_c"
+      "response_excerpt": "```json\n{\n  \"summary\": \"Merchant `mrc_00005` is recommended for BLOCK due to strong signals indicating participation in a merchant ring and sharing a bank account with multiple other merchants.\",\n  \"critical_findings\": [\n    {\n      \"finding\": \"The `assess_payment_risk` tool recommended to BLOCK `mr",
+      "tools_called": [
+        {
+          "tool": "assess_payment_risk",
+          "args": {
+            "merchant_id": "mrc_00005"
+          },
+          "success": true
+        },
+        {
+          "tool": "detect_merchant_ring",
+          "args": {
+            "merchant_id": "mrc_00005"
+          },
+          "success": false
+        }
+      ],
+      "evidence_gaps": [
+        {
+          "tool_name": "detect_merchant_ring",
+          "reason": "Tool call timed out",
+          "args": {
+            "merchant_id": "mrc_00005"
+          },
+          "timestamp": 1778357260.819676
+        }
+      ]
     },
     {
       "id": "dg-002",
@@ -354,15 +457,36 @@
       "verdict": "PASS",
       "scores": {
         "completeness": 1.0,
-        "accuracy": 0.75
+        "accuracy": 1.0,
+        "degradation": 1.0
       },
-      "checks": {
-        "gap_acknowledged": true
-      },
-      "tools_called": [],
-      "evidence_gaps": 0,
-      "elapsed_s": 0.18,
-      "response_preview": "I encountered an error generating the analysis. Current investigation state: {\"session_id\": \"dg-002\", \"phase\": \"triage\", \"turn_count\": 0, \"findings_count\": 0, \"entities_examined\": [], \"evidence_gaps_c"
+      "response_excerpt": "```json\n{\n  \"risk_level\": \"MEDIUM\",\n  \"summary\": \"Merchant mrc_00002 is flagged as MEDIUM risk due to the detection of a merchant ring. A critical payment risk assessment is pending due to an unavailable risk engine.\",\n  \"critical_findings\": [\n    {\n      \"description\": \"Merchant mrc_00002 is part o",
+      "tools_called": [
+        {
+          "tool": "assess_payment_risk",
+          "args": {
+            "merchant_id": "mrc_00002"
+          },
+          "success": false
+        },
+        {
+          "tool": "detect_merchant_ring",
+          "args": {
+            "merchant_id": "mrc_00002"
+          },
+          "success": true
+        }
+      ],
+      "evidence_gaps": [
+        {
+          "tool_name": "assess_payment_risk",
+          "reason": "Risk engine unavailable",
+          "args": {
+            "merchant_id": "mrc_00002"
+          },
+          "timestamp": 1778357282.841046
+        }
+      ]
     },
     {
       "id": "dg-003",
@@ -370,15 +494,36 @@
       "verdict": "PASS",
       "scores": {
         "completeness": 1.0,
-        "accuracy": 0.75
+        "accuracy": 1.0,
+        "degradation": 1.0
       },
-      "checks": {
-        "gap_acknowledged": true
-      },
-      "tools_called": [],
-      "evidence_gaps": 0,
-      "elapsed_s": 0.15,
-      "response_preview": "I encountered an error generating the analysis. Current investigation state: {\"session_id\": \"dg-003\", \"phase\": \"triage\", \"turn_count\": 0, \"findings_count\": 0, \"entities_examined\": [], \"evidence_gaps_c"
+      "response_excerpt": "```json\n{\n  \"investigation_summary\": {\n    \"merchant_id\": \"mrc_00010\",\n    \"overall_risk_score\": 0.500,\n    \"risk_level\": \"MEDIUM\",\n    \"summary_statement\": \"A potential merchant ring involving mrc_00010 has been detected, indicating a medium risk profile. A critical gap exists due to the failure of",
+      "tools_called": [
+        {
+          "tool": "assess_payment_risk",
+          "args": {
+            "merchant_id": "mrc_00010"
+          },
+          "success": false
+        },
+        {
+          "tool": "detect_merchant_ring",
+          "args": {
+            "merchant_id": "mrc_00010"
+          },
+          "success": true
+        }
+      ],
+      "evidence_gaps": [
+        {
+          "tool_name": "assess_payment_risk",
+          "reason": "Invalid response format from engine",
+          "args": {
+            "merchant_id": "mrc_00010"
+          },
+          "timestamp": 1778357299.001128
+        }
+      ]
     },
     {
       "id": "dg-004",
@@ -386,15 +531,36 @@
       "verdict": "PASS",
       "scores": {
         "completeness": 1.0,
-        "accuracy": 0.75
+        "accuracy": 1.0,
+        "degradation": 1.0
       },
-      "checks": {
-        "gap_acknowledged": true
-      },
-      "tools_called": [],
-      "evidence_gaps": 0,
-      "elapsed_s": 0.09,
-      "response_preview": "I encountered an error generating the analysis. Current investigation state: {\"session_id\": \"dg-004\", \"phase\": \"triage\", \"turn_count\": 0, \"findings_count\": 0, \"entities_examined\": [], \"evidence_gaps_c"
+      "response_excerpt": "```json\n{\n  \"investigation_summary\": {\n    \"merchant_id\": \"mrc_00005\",\n    \"overall_risk_score\": 0.688,\n    \"decision\": \"BLOCK\",\n    \"critical_findings\": [\n      {\n        \"type\": \"SHARED_BANK_ACCOUNT_FRAUD_INDICATOR\",\n        \"description\": \"Merchant mrc_00005 shares a bank account with 4 other mer",
+      "tools_called": [
+        {
+          "tool": "detect_merchant_ring",
+          "args": {
+            "merchant_id": "mrc_00005"
+          },
+          "success": false
+        },
+        {
+          "tool": "assess_payment_risk",
+          "args": {
+            "merchant_id": "mrc_00005"
+          },
+          "success": true
+        }
+      ],
+      "evidence_gaps": [
+        {
+          "tool_name": "detect_merchant_ring",
+          "reason": "Empty result set",
+          "args": {
+            "merchant_id": "mrc_00005"
+          },
+          "timestamp": 1778357326.2536151
+        }
+      ]
     },
     {
       "id": "dg-005",
@@ -402,15 +568,94 @@
       "verdict": "PASS",
       "scores": {
         "completeness": 1.0,
-        "accuracy": 0.75
+        "accuracy": 1.0,
+        "degradation": 1.0
       },
-      "checks": {
-        "gap_acknowledged": true
-      },
-      "tools_called": [],
-      "evidence_gaps": 0,
-      "elapsed_s": 0.09,
-      "response_preview": "I encountered an error generating the analysis. Current investigation state: {\"session_id\": \"dg-005\", \"phase\": \"triage\", \"turn_count\": 0, \"findings_count\": 0, \"entities_examined\": [], \"evidence_gaps_c"
+      "response_excerpt": "```json\n{\n  \"investigation_summary\": {\n    \"merchant_id\": \"mrc_00001\",\n    \"overall_risk_score\": 0.120,\n    \"risk_level\": \"LOW\",\n    \"critical_findings\": [\n      {\n        \"description\": \"The `detect_merchant_ring` tool timed out on two attempts, preventing assessment for a potentially high-risk mer",
+      "tools_called": [
+        {
+          "tool": "assess_payment_risk",
+          "args": {
+            "merchant_id": "mrc_00001"
+          },
+          "success": true
+        },
+        {
+          "tool": "detect_merchant_ring",
+          "args": {
+            "merchant_id": "mrc_00001"
+          },
+          "success": false
+        },
+        {
+          "tool": "detect_merchant_ring",
+          "args": {
+            "merchant_id": "mrc_00001"
+          },
+          "success": false
+        }
+      ],
+      "evidence_gaps": [
+        {
+          "tool_name": "detect_merchant_ring",
+          "reason": "Tool call timed out",
+          "args": {
+            "merchant_id": "mrc_00001"
+          },
+          "timestamp": 1778357351.6564841
+        },
+        {
+          "tool_name": "detect_merchant_ring",
+          "reason": "Tool call timed out",
+          "args": {
+            "merchant_id": "mrc_00001"
+          },
+          "timestamp": 1778357357.074234
+        }
+      ]
     }
-  ]
+  ],
+  "summary": {
+    "total": 20,
+    "by_category": {
+      "true_positive": {
+        "pass_rate": 1.0,
+        "passed": 5,
+        "total": 5,
+        "avg_scores": {
+          "completeness": 0.9,
+          "accuracy": 1.0
+        }
+      },
+      "true_negative": {
+        "pass_rate": 1.0,
+        "passed": 5,
+        "total": 5,
+        "avg_scores": {
+          "completeness": 0.9,
+          "accuracy": 0.92
+        }
+      },
+      "ambiguous": {
+        "pass_rate": 1.0,
+        "passed": 5,
+        "total": 5,
+        "avg_scores": {
+          "completeness": 1.0,
+          "accuracy": 1.0
+        }
+      },
+      "degraded": {
+        "pass_rate": 1.0,
+        "passed": 5,
+        "total": 5,
+        "avg_scores": {
+          "completeness": 1.0,
+          "accuracy": 1.0,
+          "degradation": 1.0
+        }
+      }
+    },
+    "overall_pass_rate": 1.0
+  }
 }

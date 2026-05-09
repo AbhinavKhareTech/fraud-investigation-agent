@@ -118,6 +118,8 @@ If you have enough evidence to respond to the analyst:
 Available tools:
 {json.dumps(tools_schema, indent=2)}
 
+Current analyst request: {memory.get_messages()[-1]['content'] if memory.get_messages() else 'N/A'}
+
 Rules:
 - Do NOT re-call a tool with the same arguments already in the investigation state
 - If a tool previously failed, note the gap rather than retrying with identical args

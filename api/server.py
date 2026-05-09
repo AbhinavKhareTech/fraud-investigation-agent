@@ -22,7 +22,8 @@ def detect_provider():
         return "openai"
     elif os.environ.get("GROQ_API_KEY"):
         return "groq"
-    return "openai"
+    elif os.environ.get("GEMINI_API_KEY"):
+        return "gemini"    return "openai"
 
 
 @app.on_event("startup")
