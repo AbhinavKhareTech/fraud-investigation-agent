@@ -161,7 +161,7 @@ See [ARCHITECTURE.md](ARCHITECTURE.md) for full decision doc. Summary:
 |---|---|---|
 | Framework | Custom orchestrator (~250 LOC) | PS3 says "minimal agent." LangGraph adds 3 deps for a 2-tool agent. |
 | Session memory | Structured dict, not chat history | Investigation state != conversation log. Evidence ledger matters. |
-| LLM | Model-agnostic (Anthropic/OpenAI) | Swap without rewriting agent logic. |
+| LLM | Model-agnostic (Anthropic, OpenAI, Groq, Gemini) | Swap without rewriting agent logic. |
 | Eval | Deterministic + LLM-as-judge hybrid | Task completion is binary. Reasoning quality needs judgment. |
 
 ---
