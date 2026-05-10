@@ -14,16 +14,22 @@ from agent.llm import LLMClient
 
 logging.basicConfig(level=logging.INFO, format="%(levelname)s | %(message)s")
 
+SHELL_PREFIXES = [
+    "ls", "cd ", "pwd", "pip ", "cat ", "grep ", "mkdir", "rm ",
+    "git ", "python ", "export ", "echo ", "sudo ", "npm ", "brew ",
+]
+
 
 def detect_provider():
+    if os.environ.get("GEMINI_API_KEY"):
+        return "gemini"
     if os.environ.get("ANTHROPIC_API_KEY"):
         return "anthropic"
-    elif os.environ.get("OPENAI_API_KEY"):
+    if os.environ.get("OPENAI_API_KEY"):
         return "openai"
-    elif os.environ.get("GROQ_API_KEY"):
+    if os.environ.get("GROQ_API_KEY"):
         return "groq"
-    elif os.environ.get("GEMINI_API_KEY"):
-        return "gemini"    return None
+    return None
 
 
 def try_load_engine():
@@ -48,7 +54,7 @@ async def main():
     tools = try_load_engine()
     provider = detect_provider()
     if not provider:
-        print("\n  ERROR: Set ANTHROPIC_API_KEY, OPENAI_API_KEY, or GROQ_API_KEY")
+        print("\n  ERROR: Set GEMINI_API_KEY, ANTHROPIC_API_KEY, OPENAI_API_KEY, or GROQ_API_KEY")
         return
 
     llm = LLMClient(provider=provider)
@@ -77,12 +83,18 @@ async def main():
             print(memory.get_state_summary())
             continue
 
+        if any(user_input.lower().startswith(p) for p in SHELL_PREFIXES):
+            print("  That looks like a shell command, not an investigation query.")
+            print("  Try: 'Investigate merchant mrc_00005'")
+            continue
+
         print("\n  [investigating...]")
         result = await orchestrator.investigate(session_id, user_input)
         print(f"\n[agent] {result['response']}")
         print(f"\n  --- phase: {result['phase']} | findings: {result['findings_count']} | gaps: {len(result['evidence_gaps'])} | turn: {result['turn']} ---")
         for tc in result["tool_calls_made"]:
-            print(f"  tool: {tc['tool']} [{'OK' if tc['success'] else 'FAILED'}]")
+            status = "OK" if tc["success"] else "FAILED"
+            print(f"  tool: {tc['tool']} [{status}]")
 
 
 if __name__ == "__main__":
